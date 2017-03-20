@@ -4,18 +4,21 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseButton;
 
 public class TekenCanvas extends Canvas {
-	private static final int xCoordinate = 5;
-	private static final int yCoordinate = 5;
-	
-	public TekenCanvas(LintBox hL, int width, int height) {
-		super(width, height);
+
+  //Extract constant
+	public static final int X_COORDINATE = 5;
+	public static final int Y_COORDINATE = 5;
+
+	//Extract parameter object
+	public TekenCanvas(CanvasProperties canvasProperties)  {
+		super(canvasProperties.getWidth(), canvasProperties.getHeight());
 		GraphicsContext gc = this.getGraphicsContext2D();
-		gc.strokeRect(xCoordinate, yCoordinate, width - 9, height - 10);
+		gc.strokeRect(X_COORDINATE, Y_COORDINATE, canvasProperties.getWidth() - 9, canvasProperties.getHeight() - 10);
 
 		this.setOnMousePressed(event -> {
 			if (event.getButton() == MouseButton.PRIMARY) {
 				gc.beginPath();
-				gc.setStroke(hL.getColor());
+				gc.setStroke(canvasProperties.gethL().getColor());
 			}
 		});
 
@@ -32,4 +35,33 @@ public class TekenCanvas extends Canvas {
 			}
 		});
 	}
+
+  //Extract parameter object
+  //Extract interface
+  static class CanvasProperties implements EenInterface {
+    private final LintBox hL;
+    private final int width;
+    private final int height;
+
+    CanvasProperties(LintBox hL, int width, int height) {
+      this.hL = hL;
+      this.width = width;
+      this.height = height;
+    }
+
+    @Override
+    public LintBox gethL() {
+      return hL;
+    }
+
+    @Override
+    public int getWidth() {
+      return width;
+    }
+
+    @Override
+    public int getHeight() {
+      return height;
+    }
+  }
 }

@@ -47,3 +47,6 @@ Temporary Items
 .apdisk
 
 /bin/
+TekenApplicatieRefactor.iml
+*.xml
+.idea/sonarlint/issuestore/index.pb
